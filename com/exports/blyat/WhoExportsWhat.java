@@ -61,7 +61,32 @@ public class WhoExportsWhat {
     
     void bigExporters(CSVParser parser, String amountInCash)
     {
-    	
+    	String amountWOCommas = "";
+    	//int bigExportersAmount = 0;
+    	long originalAmount = 0;
+    	long currentCash = 0;
+    	if(amountInCash.charAt(0) == '$')
+    	{
+    		String exportersValue = "";
+    		
+    		amountWOCommas = amountInCash.replaceAll("," , ""); //delete all instances of commas
+    		originalAmount = Long.valueOf(amountWOCommas.substring(1));
+    		//amountWOCommas = amountWOCommas.toString(originalAmount);
+    		for(CSVRecord record : parser)
+    		{
+    			exportersValue = record.get("Value (dollars)");
+    			exportersValue = exportersValue.replaceAll("," , "");
+    			currentCash = Long.valueOf(exportersValue.substring(1));
+    			//System.out.println(currentCash);
+    			if(currentCash >= originalAmount)
+    			{	
+    				//bigExportersAmount++;
+    				System.out.println(record.get("Country") + " " + record.get("Value (dollars)"));
+    			}
+            }
+    		//amountInCash.replaceAll(, arg1)
+    	}
+    	//return bigExportersAmount;
     }
     
     
@@ -70,8 +95,12 @@ public class WhoExportsWhat {
         FileResource fr = new FileResource();
         
         CSVParser parser = fr.getCSVParser();
-        //whoExports("coffee", parser);
         System.out.println(countryInfo("Germany", parser));
+        //whoExports("coffee", parser);
+        
+        //String amountInCash = "$450,514,512";
+        //amountInCash = amountInCash.replaceAll(",", "");
+        //System.out.println(Integer.valueOf(amountInCash.substring(1)));
         
         parser = fr.getCSVParser();
         listExportersTwoProducts(parser, "gold", "diamonds");
@@ -80,6 +109,9 @@ public class WhoExportsWhat {
         parser = fr.getCSVParser();
         int numberOfCountries = numberOfExporters(parser, testItem);
         System.out.println("Number of countries who exports " + testItem + " are: " + numberOfCountries);
+        
+        parser = fr.getCSVParser();
+        bigExporters(parser, "$999,999,999");
         
     }
 
