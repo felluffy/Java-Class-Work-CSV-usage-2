@@ -32,16 +32,38 @@ public class WhoExportsWhat {
         return "Not Found";
     }
     
+    int numberOfExporters(CSVParser parser, String exportItem)
+    {
+    	int numberOfCountries = 0;
+        for(CSVRecord record : parser)
+        {
+            if(record.get("Exports").contains(exportItem))
+            {
+                System.out.println(record.get("Country"));
+                ++numberOfCountries;
+            }
+        }
+        return numberOfCountries;
+    }
+    
     void listExportersTwoProducts(CSVParser parser, String exportItem1, String exportItem2)
     {
+    	System.out.println("Counries exporting two products are: ");
     	for(CSVRecord record : parser)
         {
             //System.out.println(record.get("Country"));
             if(record.get("Exports").contains(exportItem1) && record.get("Exports").contains(exportItem2))
-                System.out.println(record.get("Country"));
+                System.out.print(record.get("Country") + " ");
                 //return new String(record.get("Country") + ": " + record.get("Exports") + ": " + record.get("Value (dollars)"));
         }
+    	System.out.println();
     }
+    
+    void bigExporters(CSVParser parser, String amountInCash)
+    {
+    	
+    }
+    
     
     void testWhoExports()
     {
@@ -52,7 +74,12 @@ public class WhoExportsWhat {
         System.out.println(countryInfo("Germany", parser));
         
         parser = fr.getCSVParser();
-        listExporterswoProducts(parser, "gold", "diamonds");
+        listExportersTwoProducts(parser, "gold", "diamonds");
+        
+        String testItem = "gold";
+        parser = fr.getCSVParser();
+        int numberOfCountries = numberOfExporters(parser, testItem);
+        System.out.println("Number of countries who exports " + testItem + " are: " + numberOfCountries);
         
     }
 
