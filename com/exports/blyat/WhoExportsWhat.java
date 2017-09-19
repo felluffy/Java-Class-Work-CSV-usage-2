@@ -7,8 +7,8 @@ public class WhoExportsWhat {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		//.System.out.println("BLYAT");
-		WhoExportsWhat blek = new WhoExportsWhat(); 
-		blek.testWhoExports();
+		WhoExportsWhat test = new WhoExportsWhat(); 
+		test.testWhoExports();
 	}
 	
 	void whoExports(String item, CSVParser parser)
@@ -29,10 +29,10 @@ public class WhoExportsWhat {
                 //System.out.println(y);
                 return new String(record.get("Country") + ": " + record.get("Exports") + ": " + record.get("Value (dollars)"));
         }
-        return "";
+        return "Not Found";
     }
     
-    void listExporterswoProducts(CSVParser parser, String exportItem1, String exportItem2)
+    void listExportersTwoProducts(CSVParser parser, String exportItem1, String exportItem2)
     {
     	for(CSVRecord record : parser)
         {
